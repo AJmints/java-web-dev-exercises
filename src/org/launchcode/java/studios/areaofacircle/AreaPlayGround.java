@@ -4,6 +4,7 @@ import java.sql.SQLOutput;
 import java.util.Scanner;
 public class AreaPlayGround {
     public static void main(String[] args) {
+        //This code was a test from Adams code, I did not write it and want to give credit where due.
         Scanner input = new Scanner(System.in);
         double radius;
         System.out.println("What is the radius of the circle?");
