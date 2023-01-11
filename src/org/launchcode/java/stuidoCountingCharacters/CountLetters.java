@@ -2,6 +2,7 @@ package org.launchcode.java.stuidoCountingCharacters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class CountLetters {
@@ -10,10 +11,9 @@ public class CountLetters {
         ArrayList<Character> arr = new ArrayList<>();
         HashMap<Character, Integer> outPut = new HashMap<>();
         String remove = args.replaceAll("[^a-zA-Z]", "");
-        String in = remove.toLowerCase();
+        String input = args.toUpperCase();
 
-
-        for (Character character : in.toCharArray()) {
+        for (Character character : remove.toUpperCase().toCharArray()) {
             arr.add(character);
         }
 
@@ -21,7 +21,7 @@ public class CountLetters {
         for (Character character : arr) {
             int count =0;
             //compare chars from array(arr) with string(args)
-            for (Character seek : args.toCharArray()) {
+            for (Character seek : input.toCharArray()) {
                 if (character.equals(seek)) {
                     count++;
                 }
