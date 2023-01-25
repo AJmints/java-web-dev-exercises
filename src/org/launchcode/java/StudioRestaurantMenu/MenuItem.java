@@ -1,17 +1,19 @@
 package org.launchcode.java.StudioRestaurantMenu;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
+
 public class MenuItem {
         //All variables private
-        public  String category;
+        public String category;
         public String name;
         public String description;
         public Double price;
-        public final LocalDateTime itemCreated = LocalDateTime.now();
-        public Boolean newItem = true;
-
-        public static int itemNumber = 1;
+        public final LocalDate dateAdded = LocalDate.now();
+        public Boolean isItNew = false;
+        private static int itemNumber = 1;
+        private int itemID;
 
 
         public MenuItem(String category, String name, String description, Double price) {
@@ -19,18 +21,42 @@ public class MenuItem {
             this.name = name;
             this.description = description;
             this.price = price;
-            itemNumber = generateItemNumber();
+            this.itemID = generateItemNumber();
         }
 
 
-    private static int generateItemNumber() {
-            itemNumber++;
-            return itemNumber;
+    private int generateItemNumber() {
+        this.itemID = itemNumber;
+        itemNumber++;
+        return itemID;
     }
 
 
 
     public String menuItemInfo() {
-        return "(Currently broken) Menu Item: " + this.itemNumber + "\nCategory: " + this.category + "\nName: " +this.name + "\nDescription: " + this.description + "\nPrice: " + this.price + "\n";
+        return "Item ID: " + this.itemID + "\nCategory: " + this.category + "\nName: " +this.name + "\nDescription: " + this.description + "\nPrice: " + this.price + "\n";
     }
+
+    public boolean isNew() {
+            LocalDate today = LocalDate.now();
+            double daysBetween = dateAdded.until(today, ChronoUnit.DAYS);
+            System.out.println("\nItem added: " + dateAdded + "\n" + daysBetween + " days since " + name + " was added.");
+            if (daysBetween < 90) {
+                this.isItNew = true;
+            }
+            return daysBetween < 90;
+    }
+
+    public Boolean contains(String arg) {
+        return Objects.equals(this.name.toUpperCase(), arg.toUpperCase());
+    }
+
+    public void getName() {
+        System.out.println(this.name);
+    }
+
+    public void getIDNum() {
+        System.out.println(this.itemID);
+    }
+
 }
