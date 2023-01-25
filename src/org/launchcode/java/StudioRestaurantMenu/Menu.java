@@ -10,18 +10,10 @@ public class Menu {
         menu.add(obj);
     }
 
-    public static void removeItem(String obj) {
-        for (MenuItem item : menu) {
-            if (item.name.equalsIgnoreCase(obj)) {
-                System.out.println("The following items have been removed: \n\n" + item.menuItemInfo());
-                menu.remove(item);
-                break;
-            }
-        }
-    }
+
 
     public static void getMenu() {
-        System.out.println("\nCurrent menu consist of:\n");
+        System.out.println("\nCurrent menu consist of:");
         for (MenuItem item : menu) {
             System.out.println(item.menuItemInfo());
         }
@@ -29,19 +21,26 @@ public class Menu {
 
     public static void acquireName() {
         for (MenuItem item : menu) {
-            item.getName();
+            int id = item.getIDNum();
+            String name = item.getName();
+            System.out.println("Item ID: " + id + " - Item Name: " + name);
         }
     }
 
-    public static void acquireID() {
+    public static void removeItem(int obj) {
         for (MenuItem item : menu) {
-            item.getIDNum();
+            if (item.containsID(obj)) {
+                System.out.println(item.menuItemInfo() + "\n\nThe selected item '" + item.getName() + "' has been removed");
+                menu.remove(item);
+                return;
+            }
         }
+        System.out.println("No items match your search.");
     }
 
-    public static void containsItem(String arg) {
+    public static void containsItem(int arg) {
         for (MenuItem item : menu) {
-            if (item.contains(arg)) {
+            if (item.containsID(arg)) {
                 item.isNew();
                 if (item.isItNew.equals(true)) {
                     System.out.println("\nNEW ITEM\n" + item.menuItemInfo());
@@ -52,6 +51,16 @@ public class Menu {
             }
         }
         System.out.println("No items match your search.");
+    }
+
+    public static Boolean isItDuplicate(MenuItem arg) {
+        for (MenuItem item : menu) {
+            if (item.containsName(arg.name)) {
+                System.out.println("\nThere are other items with the same name, do you wish to proceed?\n0 - yes\n1 - no");
+                return true;
+            }
+        }
+        return false;
     }
 
 }

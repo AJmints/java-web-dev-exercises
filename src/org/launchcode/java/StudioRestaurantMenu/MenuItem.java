@@ -13,7 +13,7 @@ public class MenuItem {
         public final LocalDate dateAdded = LocalDate.now();
         public Boolean isItNew = false;
         private static int itemNumber = 1;
-        private int itemID;
+        public int itemID;
 
 
         public MenuItem(String category, String name, String description, Double price) {
@@ -34,7 +34,7 @@ public class MenuItem {
 
 
     public String menuItemInfo() {
-        return "Item ID: " + this.itemID + "\nCategory: " + this.category + "\nName: " +this.name + "\nDescription: " + this.description + "\nPrice: " + this.price + "\n";
+        return "\nItem ID: " + this.itemID + "\nCategory: " + this.category + "\nName: " +this.name + "\nDescription: " + this.description + "\nPrice: " + this.price;
     }
 
     public boolean isNew() {
@@ -47,16 +47,20 @@ public class MenuItem {
             return daysBetween < 90;
     }
 
-    public Boolean contains(String arg) {
+    public Boolean containsName(String arg) {
         return Objects.equals(this.name.toUpperCase(), arg.toUpperCase());
     }
 
-    public void getName() {
-        System.out.println(this.name);
+    public Boolean containsID(int arg) {
+            return Objects.equals(this.itemID, arg);
     }
 
-    public void getIDNum() {
-        System.out.println(this.itemID);
+    public String getName() {
+        return this.name;
+    }
+
+    public int getIDNum() {
+        return this.itemID;
     }
 
 }

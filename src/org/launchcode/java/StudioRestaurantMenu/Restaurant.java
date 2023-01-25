@@ -50,16 +50,24 @@ public class Restaurant {
             }
 
             if (choice == 1) {
-                System.out.println("\nPlease write the name of the item you wish to view.\n");
+                System.out.println("\nPlease input the ID number of the item you wish to view.\n");
                 theMenu.acquireName();
-                String view = input.nextLine();
+                while (!input.hasNextInt()) {
+                    System.out.println("Please enter valid number");
+                    input.nextLine();
+                }
+                int view = input.nextInt();
                 theMenu.containsItem(view);
             }
 
             if (choice == 2) {
-                System.out.println("Please write the name of the item you wish to remove.\n");
+                System.out.println("Please input the ID number of the item you wish to remove.\n");
                 theMenu.acquireName();
-                String remove = input.nextLine();
+                while (!input.hasNextInt()) {
+                    System.out.println("Please enter valid number");
+                    input.nextLine();
+                }
+                int remove = input.nextInt();
                 theMenu.removeItem(remove);
             }
 
@@ -74,15 +82,44 @@ public class Restaurant {
                 price = input.nextDouble();
 
                 if (category != "" && name != "" && description != "" && price != 0.0) {
+
                     meal = new MenuItem(category, name, description, price);
-                    Menu.addItem(meal);
-                    System.out.println("New item successfully added, here is the updated menu: \n");
-                    theMenu.getMenu();
+
+                    if (theMenu.isItDuplicate(meal)){
+                        input.nextLine();
+
+                        while (!input.hasNextInt()) {
+                            System.out.println("\nPlease enter 0 or 1");
+                            input.nextLine();
+                        }
+
+                        int proceed = input.nextInt();
+
+                        if (proceed == 0) {
+                            System.out.println("\nItem added.");
+                            Menu.addItem(meal);
+                        }
+
+                        if (proceed == 1) {
+                            System.out.println("\nItem not added.");
+                        }
+
+                        if (proceed > 1 || proceed < 0) {
+                            System.out.println("\nInvalid input, Item not added.");
+                            //Temp solution, want to force user to input 1 or 0 in above while loop
+                        }
+
+
+                    } else {
+                        Menu.addItem(meal);
+                        theMenu.getMenu();
+                        System.out.println("\nNew item successfully added, here is the updated menu.");
+                    }
                 }
             }
 
             if (choice == 4) {
-                System.out.println(".\n.\n.\nGoodbye");
+                System.out.println("......\n....\n..\nGoodbye");
                 break;
             }
 
